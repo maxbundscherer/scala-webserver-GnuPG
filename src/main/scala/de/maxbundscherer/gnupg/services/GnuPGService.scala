@@ -32,4 +32,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration {
   def getPublicKeys: String =
     this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-keys"))
 
+  def getPrivateKeys: String =
+    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-secret-keys"))
+
 }

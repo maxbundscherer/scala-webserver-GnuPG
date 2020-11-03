@@ -14,6 +14,8 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     s"<p>" +
     s"" +
+    s"<p>We still have things to do... (see README.md)</p>" +
+    s"" +
     s"<ul>" +
     s"<li>Product-Name: '${Config.Global.productName}'</li>" +
     s"<li>Host:Port: '${Config.WebServer.host}:${Config.WebServer.port}'</li>" +
@@ -23,6 +25,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<ul>" +
     s"<li><a href='getWorkDirFiles'>Get work dir files</a></li>" +
     s"<li><a href='getPublicKeys'>Get public keys</a></li>" +
+    s"<li><a href='getPrivateKeys'>Get private keys</a></li>" +
     s"</ul>" +
     s"" +
     s"</p>" +
@@ -42,6 +45,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       title = "Public keys"
     ) +
     s"<p>${this.gnuPGService.getPublicKeys}</p>" +
+    this.Template.getTemplateFooter
+
+  def getPrivateKeys: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "GetPrivateKeys",
+      title = "Private keys"
+    ) +
+    s"<p>${this.gnuPGService.getPrivateKeys}</p>" +
     this.Template.getTemplateFooter
 
   private object Template {

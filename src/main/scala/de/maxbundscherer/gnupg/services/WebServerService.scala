@@ -48,6 +48,16 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
             )
           )
         }
+      } ~
+      pathPrefix("getPrivateKeys") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.getPrivateKeys
+            )
+          )
+        }
       }
 
     val _ = Http().newServerAt(interface = Config.WebServer.host, Config.WebServer.port).bind(route)
