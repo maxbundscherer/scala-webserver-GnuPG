@@ -15,6 +15,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<p>" +
     s"" +
     s"<ul>" +
+    s"<li>Product-Name: '${Config.Global.productName}'</li>" +
+    s"<li>Host:Port: '${Config.WebServer.host}:${Config.WebServer.port}'</li>" +
+    s"<li>WorkDir: '${Config.GnuPGService.workDir}'</li>" +
+    s"</ul>" +
+    s"" +
+    s"<ul>" +
     s"<li><a href='getWorkDirFiles'>Get work dir files</a></li>" +
     s"<li><a href='getPublicKeys'>Get public keys</a></li>" +
     s"</ul>" +
