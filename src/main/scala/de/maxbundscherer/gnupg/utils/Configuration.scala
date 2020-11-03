@@ -5,7 +5,7 @@ trait Configuration {
   object Config {
 
     object Global {
-      val productName: String = "Scala-GnuPG Webserver"
+      val productName: String = de.maxbundscherer.gnupg.utils.BuildInfo.name
     }
 
     object WebServer {

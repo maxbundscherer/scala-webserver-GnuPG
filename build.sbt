@@ -1,5 +1,5 @@
-name := "scala-webserver-GnuPG"
-version := "0.1"
+name := "Scala-GnuPG Webserver"
+version := "0.0.2"
 scalaVersion := "2.13.3"
 
 val AkkaVersion = "2.6.8"
@@ -15,3 +15,10 @@ libraryDependencies += "com.typesafe" % "config" % "1.4.0"
 
 //Logger
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
+
+lazy val root = (project in file(".")).
+  enablePlugins(BuildInfoPlugin).
+  settings(
+    buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
+    buildInfoPackage := "de.maxbundscherer.gnupg.utils"
+  )

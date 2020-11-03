@@ -18,6 +18,9 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"" +
     s"<ul>" +
     s"<li>Product-Name: '${Config.Global.productName}'</li>" +
+    s"<li>Product-Version: '${de.maxbundscherer.gnupg.utils.BuildInfo.version}'</li>" +
+    s"<li>Scala-Version: '${de.maxbundscherer.gnupg.utils.BuildInfo.scalaVersion}'</li>" +
+    s"<li>SBT-Version: '${de.maxbundscherer.gnupg.utils.BuildInfo.sbtVersion}'</li>" +
     s"<li>Host:Port: '${Config.WebServer.host}:${Config.WebServer.port}'</li>" +
     s"<li>WorkDir: '${Config.GnuPGService.workDir}'</li>" +
     s"</ul>" +
