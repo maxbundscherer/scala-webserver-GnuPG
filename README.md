@@ -45,3 +45,8 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
 - Run with ``sbt run``
 - Triggered Restart (recommend) ``sbt ~reStart``
+
+### CI Notes
+
+- Set version in ``build.sbt`` e.g. ``v0.0.2``
+- Release tag on gitHub e.g. ``v0.0.2``
