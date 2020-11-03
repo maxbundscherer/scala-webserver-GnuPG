@@ -19,3 +19,4 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 ## Let's get started
 
 - Run with ``sbt run``
+- Triggered Restart (recommend) ``sbt ~reStart``
