@@ -10,6 +10,9 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
     log: LoggingAdapter
 ) extends Configuration {
 
-  log.info("WebServer started")
+  private val webServerHandler = new WebServerHandler(this.gnuPGService)
+
+  def startWebServer(): Unit =
+    log.error("Should start webServer")
 
 }
