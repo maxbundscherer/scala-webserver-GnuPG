@@ -2,10 +2,11 @@ package de.maxbundscherer.gnupg.services
 
 import de.maxbundscherer.gnupg.utils.Configuration
 
-import akka.actor.ActorSystem
-import akka.event.LoggingAdapter
+import org.slf4j.Logger
 
-private class WebServerHandler(gnuPGService: GnuPGService)(implicit
-    actorSystem: ActorSystem,
-    log: LoggingAdapter
-) extends Configuration {}
+private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
+    extends Configuration {
+
+  log.debug("WebServerHandler online")
+
+}

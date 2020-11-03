@@ -2,10 +2,11 @@ package de.maxbundscherer.gnupg.services
 
 import de.maxbundscherer.gnupg.utils.Configuration
 
-import akka.event.LoggingAdapter
+import org.slf4j.Logger
 
-class GnuPGService()(implicit log: LoggingAdapter) extends Configuration {
+class GnuPGService()(implicit log: Logger) extends Configuration {
 
   log.info("GnuPGService started")
+  log.debug("GnuPGService not implemented")
 
 }
