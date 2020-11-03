@@ -24,6 +24,9 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 - ➡️ Encrypt/Decrypt files
 - ➡️ Encrypt/Decrypt messages
+- ➡️ Administrate public-keys
+- ➡️ Administrate secret-keys
+- ➡️ Generate keys
 - ➡️ Awesome front-end
 - ➡️ Don't use shell-gpg as dependency
 - ➡️ Server/Client...
