@@ -29,12 +29,12 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           )
         }
       } ~
-      pathPrefix("getWorkDirPath") {
+      pathPrefix("getWorkDirFiles") {
         get {
           complete(
             HttpEntity(
               ContentTypes.`text/html(UTF-8)`,
-              this.webServerHandler.getWorkDirPath
+              this.webServerHandler.getWorkDirFiles
             )
           )
         }

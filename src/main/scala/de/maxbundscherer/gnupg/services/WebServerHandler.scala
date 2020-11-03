@@ -15,19 +15,19 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<p>" +
     s"" +
     s"<ul>" +
-    s"<li><a href='getWorkDirPath'>Get work dir path</a></li>" +
+    s"<li><a href='getWorkDirFiles'>Get work dir files</a></li>" +
     s"<li><a href='getPublicKeys'>Get public keys</a></li>" +
     s"</ul>" +
     s"" +
     s"</p>" +
     this.Template.getTemplateFooter
 
-  def getWorkDirPath: String =
+  def getWorkDirFiles: String =
     this.Template.getTemplateHeader(
-      metaTitle = "WorkDirPath",
-      title = "Work Dir Path"
+      metaTitle = "WorkDirFiles",
+      title = "Work Dir Files"
     ) +
-    s"<p>${this.gnuPGService.getWorkDirPath}</p>" +
+    s"<p>${this.gnuPGService.getWorkDirFiles}</p>" +
     this.Template.getTemplateFooter
 
   def getPublicKeys: String =
@@ -47,12 +47,23 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       s"<style>" +
       "p, li, h1, h2, h3 {font-family: \"Verdana\"}" +
       s"</style>" +
+      s"" +
+      s"" +
+      s"<script>" +
+      s"function goBack() {" +
+      s"window.history.back();" +
+      s"}" +
+      s"</script>" +
+      s"" +
       "</head>" +
       "<body>" +
       s"<h1>${Config.Global.productName}</h1>" +
-      s"<h2>$title</h2>"
+      s"<h2>$title</h2>" +
+      s"<hr>"
 
     def getTemplateFooter: String =
+      "<hr>" +
+      "<button onClick='goBack()'>Back</button>" +
       "</body>" +
       "</html>"
 
