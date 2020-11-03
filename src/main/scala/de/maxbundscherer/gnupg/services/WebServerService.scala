@@ -12,7 +12,7 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
 
   import akka.http.scaladsl.Http
   import akka.http.scaladsl.model._
-  import akka.http.scaladsl.server.Directives._
+  import akka.http.scaladsl.server.Directives.{ entity, _ }
 
   private val webServerHandler: WebServerHandler = new WebServerHandler(this.gnuPGService)
 
@@ -24,7 +24,27 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           complete(
             HttpEntity(
               ContentTypes.`text/html(UTF-8)`,
-              "<h1>Say hello to akka-http (v0)</h1>"
+              this.webServerHandler.home
+            )
+          )
+        }
+      } ~
+      pathPrefix("getWorkDirPath") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.getWorkDirPath
+            )
+          )
+        }
+      } ~
+      pathPrefix("getPublicKeys") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.getPublicKeys
             )
           )
         }
@@ -32,7 +52,7 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
 
     val _ = Http().newServerAt(interface = Config.WebServer.host, Config.WebServer.port).bind(route)
 
-    log.info("WebServer online at http://0.0.0.0:8080")
+    log.info(s"WebServer online at http://${Config.WebServer.host}:${Config.WebServer.port}")
 
   }
 

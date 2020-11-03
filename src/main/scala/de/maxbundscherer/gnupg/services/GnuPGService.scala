@@ -7,6 +7,9 @@ import org.slf4j.Logger
 class GnuPGService()(implicit log: Logger) extends Configuration {
 
   log.info("GnuPGService started")
-  log.debug("GnuPGService not implemented")
+
+  def getWorkDirPath: String = Config.GnuPGService.workDir
+
+  def getPublicKeys: String = "not implemented"
 
 }
