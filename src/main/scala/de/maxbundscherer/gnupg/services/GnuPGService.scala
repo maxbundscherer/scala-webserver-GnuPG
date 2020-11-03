@@ -1,5 +1,5 @@
 package de.maxbundscherer.gnupg.services
 
-import de.maxbundscherer.gnupg.utils.Config
+import de.maxbundscherer.gnupg.utils.Configuration
 
-class GnuPGService extends Config {}
+class GnuPGService() extends Configuration {}

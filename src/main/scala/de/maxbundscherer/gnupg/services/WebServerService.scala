@@ -1,5 +1,8 @@
 package de.maxbundscherer.gnupg.services
 
-import de.maxbundscherer.gnupg.utils.Config
+import de.maxbundscherer.gnupg.utils.Configuration
 
-class WebServerService extends Config {}
+import akka.actor.ActorSystem
+
+class WebServerService(gnuPGService: GnuPGService)(implicit actorSystem: ActorSystem)
+    extends Configuration {}
