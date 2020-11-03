@@ -1,6 +1,6 @@
 # GnuPG Webserver (Scala)
 
-[![](https://upload.wikimedia.org/wikipedia/de/thumb/6/6b/GnuPG.svg/1920px-GnuPG.svg.png)](http://www.apache.org/licenses/LICENSE-2.0.txt)
+[![](https://upload.wikimedia.org/wikipedia/de/thumb/6/6b/GnuPG.svg/1920px-GnuPG.svg.png)]()
 
 GnuPG Webserver written in Scala based on GnuPG-Shell.
 
