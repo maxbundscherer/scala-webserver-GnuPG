@@ -8,4 +8,8 @@ import akka.event.LoggingAdapter
 class WebServerService(gnuPGService: GnuPGService)(implicit
     actorSystem: ActorSystem,
     log: LoggingAdapter
-) extends Configuration {}
+) extends Configuration {
+
+  log.info("WebServer started")
+
+}
