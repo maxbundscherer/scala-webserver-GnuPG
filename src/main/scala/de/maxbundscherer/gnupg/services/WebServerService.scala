@@ -78,11 +78,11 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           )
         }
       } ~ pathPrefix("encryptMsg2") {
-        get {
+        formFields("receiverMail") { receiverMail =>
           complete(
             HttpEntity(
               ContentTypes.`text/html(UTF-8)`,
-              this.webServerHandler.encryptMsg2
+              this.webServerHandler.encryptMsg2(receiverMail = receiverMail)
             )
           )
         }

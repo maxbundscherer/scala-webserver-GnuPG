@@ -84,12 +84,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     this.Template.getTemplateFooter
 
-  def encryptMsg2: String =
+  def encryptMsg2(receiverMail: String): String =
     this.Template.getTemplateHeader(
       metaTitle = "EncryptMsg2",
       title = "Encrypt Msg Finish"
     ) +
-    s"<p>tbd</p>" +
+    s"<p>($receiverMail)</p>" +
     this.Template.getTemplateFooter
 
   private object Template {
