@@ -29,6 +29,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<li><a href='getWorkDirFiles'>Get work dir files</a></li>" +
     s"<li><a href='getPublicKeys'>Get public keys</a></li>" +
     s"<li><a href='getPrivateKeys'>Get private keys</a></li>" +
+    s"<li><a href='writeTestFile'>Writes an test file to workDir</a></li>" +
     s"</ul>" +
     s"" +
     s"</p>" +
@@ -56,6 +57,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       title = "Private keys"
     ) +
     s"<p>${this.gnuPGService.getPrivateKeys}</p>" +
+    this.Template.getTemplateFooter
+
+  def writeTestFile: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "WriteTestFile",
+      title = "Write Test File"
+    ) +
+    s"<p>${this.gnuPGService.writeTestFile}</p>" +
     this.Template.getTemplateFooter
 
   private object Template {

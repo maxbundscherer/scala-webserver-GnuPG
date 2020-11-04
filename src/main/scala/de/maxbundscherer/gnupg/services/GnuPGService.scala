@@ -1,9 +1,10 @@
 package de.maxbundscherer.gnupg.services
 
-import de.maxbundscherer.gnupg.utils.Configuration
+import de.maxbundscherer.gnupg.utils.{ Configuration, FileHelper }
+
 import org.slf4j.Logger
 
-class GnuPGService()(implicit log: Logger) extends Configuration {
+class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper {
 
   import scala.util.{ Failure, Success, Try }
   import scala.language.postfixOps
@@ -34,5 +35,19 @@ class GnuPGService()(implicit log: Logger) extends Configuration {
 
   def getPrivateKeys: String =
     this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-secret-keys"))
+
+  def writeTestFile: String =
+    FileHelper.writeToFile(
+      content = "Test-Content",
+      filename = "testFile.txt",
+      workDirPrefix = FileHelper.generateNewWorkDirPrefix
+    ) match {
+      case Failure(exception) =>
+        val errorMsg = s"Write exception (${exception.getLocalizedMessage})"
+        log.warn(errorMsg)
+        errorMsg
+
+      case Success(_) => "Write success"
+    }
 
 }

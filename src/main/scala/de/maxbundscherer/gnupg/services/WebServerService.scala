@@ -58,6 +58,16 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
             )
           )
         }
+      } ~
+      pathPrefix("writeTestFile") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.writeTestFile
+            )
+          )
+        }
       }
 
     val _ = Http().newServerAt(interface = Config.WebServer.host, Config.WebServer.port).bind(route)

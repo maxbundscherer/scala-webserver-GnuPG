@@ -13,6 +13,7 @@ trait Configuration {
       val port: Int    = 8080
     }
 
+    //Please check if folder exists
     object GnuPGService {
       val workDir: String = "workDir/"
     }
