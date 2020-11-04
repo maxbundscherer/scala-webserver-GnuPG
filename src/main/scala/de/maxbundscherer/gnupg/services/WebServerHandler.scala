@@ -26,11 +26,11 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"</ul>" +
     s"" +
     s"<ul>" +
-    s"<li><a href='getWorkDirFiles'>Get work dir files</a></li>" +
-    s"<li><a href='getPublicKeys'>Get public keys</a></li>" +
-    s"<li><a href='getPrivateKeys'>Get private keys</a></li>" +
-    s"<li><a href='writeTestFile'>Writes an test file to workDir</a></li>" +
-    s"<li><a href='encryptMsg'>Encrypt msg</a></li>" +
+    s"<li>${this.Template.getTemplateLink("Get work dir files", "getWorkDirFiles")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Get public keys", "getPublicKeys")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Get private keys", "getPrivateKeys")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Write file to workDir", "writeTestFile")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Encrypt msg", "encryptMsg")}</li>" +
     s"</ul>" +
     s"" +
     s"</p>" +
