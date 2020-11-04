@@ -75,7 +75,9 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     this.Template.getTemplateForm(
       form = this.Template.TemplateForm(
-        items = Vector(this.Template.TemplateFormTextBox(hName = "receiver", label = "Receiver")),
+        items = Vector(
+          this.Template.TemplateFormTextBox(hName = "receiverMail", label = "Receiver-Mail")
+        ),
         hMethod = "post",
         hAction = "encryptMsg2"
       )
@@ -92,12 +94,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
 
   private object Template {
 
-    abstract class TemplateFormItem(hName: String) {
+    abstract class TemplateFormItem(hName: String, label: String) {
       def convertToHtml(): String
     }
 
     case class TemplateFormTextBox(hName: String, label: String)
-        extends TemplateFormItem(hName = hName) {
+        extends TemplateFormItem(hName = hName, label = label) {
       override def convertToHtml(): String =
         s"<label>$label</label><br><input type='text' name='$hName'><br>"
     }
