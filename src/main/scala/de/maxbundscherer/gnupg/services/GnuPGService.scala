@@ -52,16 +52,26 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       case Success(content)   => s"Write success (filePath=$content)"
     }
 
-  def encryptMsg(receiverMail: String, plainText: String): String = {
-
-    val workDirPrefix: String = FileHelper.generateNewWorkDirPrefix
-
-    FileHelper.writeToFile(content = plainText, filename = "to-encrypt.txt", workDirPrefix) match {
-      case Failure(exception) => this.handleWriteException(exception)
+  def encryptMsg(receiverMail: String, plainText: String): String =
+    FileHelper.writeToFile(
+      content = plainText,
+      filename = "to-encrypt.txt",
+      FileHelper.generateNewWorkDirPrefix
+    ) match {
+      case Failure(exception)         => this.handleWriteException(exception)
       case Success(toEncryptFilePath) =>
-        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "cat " + toEncryptFilePath))
+        //Encrypt
+        this.formOutputToHtml(input =
+          this.shellCmdWrapper(cmd =
+            s"gpg --recipient $receiverMail --encrypt --armor $toEncryptFilePath"
+          )
+        ) +
+        //Rm plainText
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + toEncryptFilePath)) +
+        //Show encrypted data
+        this.formOutputToHtml(input =
+          this.shellCmdWrapper(cmd = "cat " + toEncryptFilePath + ".asc")
+        )
     }
-
-  }
 
 }
