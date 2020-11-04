@@ -10,7 +10,7 @@ Tested on macOS (with openJDK-11)
 
 [![shields.io](http://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
-![](https://github.com/maxbundscherer/scala-webserver-GnuPG/workflows/Release%20Workflow/badge.svg)
+[![](https://github.com/maxbundscherer/scala-webserver-GnuPG/workflows/Release%20Workflow/badge.svg)](/actions)
 
 Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
