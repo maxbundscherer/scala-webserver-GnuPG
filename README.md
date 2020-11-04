@@ -2,7 +2,7 @@
 
 [![](https://upload.wikimedia.org/wikipedia/de/thumb/6/6b/GnuPG.svg/1920px-GnuPG.svg.png)]()
 
-![](./docs/screenshot.png)
+![](./doc/screenshot.png)
 
 GnuPG Webserver written in Scala based on GnuPG-Shell.
 
