@@ -132,13 +132,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       "</head>" +
       "<body>" +
       s"<h1>${Config.Global.productName}</h1>" +
+      s"<p>by Maximilian Bundscherer</p>" +
       s"<h2>$title</h2>" +
       s"<hr>"
 
     def getTemplateFooter: String =
       "<hr>" +
       this.getTemplateLink("Go back", "javascript:goBack()") +
-      "<br />" +
+      "<br>" +
       "" +
       this.getTemplateLink("Go to home", "/") +
       "</body>" +
