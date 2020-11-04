@@ -93,6 +93,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<p>${this.gnuPGService.encryptMsg(receiverMail = receiverMail, plainText = plainText)}</p>" +
     this.Template.getTemplateFooter
 
+  def decryptMsg2(authorMail: String, encryptedText: String): String =
+    this.Template.getTemplateHeader(
+      metaTitle = "DecryptMsg2",
+      title = "Decrypt Msg Finish"
+    ) +
+    s"<p>${this.gnuPGService.decryptMsg(authorMail = authorMail, encryptedText = encryptedText)}</p>" +
+    this.Template.getTemplateFooter
+
   private object Template {
 
     abstract class TemplateFormItem(hName: String, label: String) {

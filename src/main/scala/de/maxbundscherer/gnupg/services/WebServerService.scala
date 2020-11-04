@@ -86,6 +86,16 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
             )
           )
         }
+      } ~ pathPrefix("decryptMsg2") {
+        formFields("authorMail", "encryptedText") { (authorMail, encryptedText) =>
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler
+                .decryptMsg2(authorMail = authorMail, encryptedText = encryptedText)
+            )
+          )
+        }
       }
 
     val _ = Http().newServerAt(interface = Config.WebServer.host, Config.WebServer.port).bind(route)
