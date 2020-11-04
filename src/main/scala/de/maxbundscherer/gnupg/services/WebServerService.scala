@@ -77,6 +77,15 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
             )
           )
         }
+      } ~ pathPrefix("encryptMsg2") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.encryptMsg2
+            )
+          )
+        }
       }
 
     val _ = Http().newServerAt(interface = Config.WebServer.host, Config.WebServer.port).bind(route)

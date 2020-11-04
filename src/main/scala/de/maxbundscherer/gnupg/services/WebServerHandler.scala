@@ -76,6 +76,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<p>tbd</p>" +
     this.Template.getTemplateFooter
 
+  def encryptMsg2: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "EncryptMsg2",
+      title = "Encrypt Msg Finish"
+    ) +
+    s"<p>tbd</p>" +
+    this.Template.getTemplateFooter
+
   private object Template {
 
     def getTemplateHeader(metaTitle: String, title: String): String =
@@ -101,9 +109,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
 
     def getTemplateFooter: String =
       "<hr>" +
-      "<button onClick='goBack()'>Back</button>" +
+      this.getTemplateLink("Go back", "javascript:goBack()") +
+      "<br />" +
+      "" +
+      this.getTemplateLink("Go to home", "/") +
       "</body>" +
       "</html>"
+
+    def getTemplateLink(label: String, href: String): String = s"<a href='$href'>$label</a>"
 
   }
 
