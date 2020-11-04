@@ -90,8 +90,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       metaTitle = "EncryptMsg2",
       title = "Encrypt Msg Finish"
     ) +
-    s"<p>($receiverMail)</p>" +
-    s"<p>($plainText)</p>" +
+    s"<p>${this.gnuPGService.encryptMsg(receiverMail = receiverMail, plainText = plainText)}</p>" +
     this.Template.getTemplateFooter
 
   private object Template {

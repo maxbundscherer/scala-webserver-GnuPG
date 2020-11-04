@@ -50,4 +50,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       case Success(content) => s"Write success (filePath=$content)"
     }
 
+  def encryptMsg(receiverMail: String, plainText: String): String =
+    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "echo tbd"))
+
 }
