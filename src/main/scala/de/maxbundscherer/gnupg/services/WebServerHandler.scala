@@ -30,6 +30,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<li><a href='getPublicKeys'>Get public keys</a></li>" +
     s"<li><a href='getPrivateKeys'>Get private keys</a></li>" +
     s"<li><a href='writeTestFile'>Writes an test file to workDir</a></li>" +
+    s"<li><a href='encryptMsg'>Encrypt msg</a></li>" +
     s"</ul>" +
     s"" +
     s"</p>" +
@@ -65,6 +66,14 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       title = "Write Test File"
     ) +
     s"<p>${this.gnuPGService.writeTestFile}</p>" +
+    this.Template.getTemplateFooter
+
+  def encryptMsg: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "EncryptMsg",
+      title = "Encrypt Msg"
+    ) +
+    s"<p>tbd</p>" +
     this.Template.getTemplateFooter
 
   private object Template {
