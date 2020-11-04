@@ -43,7 +43,11 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 - ``gnupg`` (``brew install gnupg`` on macOS)
 - ``java``
-- ``sbt``
+- ``sbt`` (only as developer)
+
+#### Let's go (no developer)
+
+- See section ``Use release version from CI`` below.
 
 ### Let's go
 
