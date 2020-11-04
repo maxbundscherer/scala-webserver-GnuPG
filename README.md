@@ -52,7 +52,17 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - Triggered Restart (recommend) ``sbt ~reStart``
 - Assembly (jar) with ``sbt assembly``
 
-### CI Notes
+## Continuous Integration
 
+### Use release version from CI
+
+- Download jar from [last build](actions/)
+- Extract jar
+- Create dir from [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
+- Run ``java -jar artifact.jar``
+
+### Release own version
+
+- Merge to ``main``-branch
 - Set version in ``build.sbt`` e.g. ``v0.0.2``
 - Release tag on gitHub e.g. ``v0.0.2``
