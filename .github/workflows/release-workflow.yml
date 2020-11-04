@@ -22,5 +22,5 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: artifact-server-$GITHUB_REF.jar
+        name: artifact-server.jar
         path: artifact.jar
