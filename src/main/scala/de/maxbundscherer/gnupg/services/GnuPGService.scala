@@ -28,7 +28,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
   private val workDir = Config.GnuPGService.workDir
 
   def getWorkDirFiles: String =
-    this.formOutputToHtml(this.shellCmdWrapper(cmd = "ls -al " + workDir)) + "\n\n"
+    this.formOutputToHtml(this.shellCmdWrapper(cmd = "find " + workDir)) + "\n\n"
 
   def getPublicKeys: String =
     this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-keys"))
