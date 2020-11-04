@@ -14,11 +14,11 @@ jobs:
       with:
         java-version: 11
     - name: Compile
-      run: sbt compile
-    - name: Debug
+      run: sbt assembly
+    - name: Debug (find target/)
       run: find target/
     - name: Move package to artifact dir
-      run: echo -n "$GITHUB_REF" | tail -c 6 | xargs -I {} mv scala-2.13/scala-gnupg-webserver_2.13-{}.jar target/artifact.jar
+      run: echo -n "$GITHUB_REF" | tail -c 6 | xargs -I {} mv scala-2.13/Scala-GnuPG Webserver-assembly-{}.jar target/artifact.jar
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:

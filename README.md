@@ -46,6 +46,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
 - Run with ``sbt run``
 - Triggered Restart (recommend) ``sbt ~reStart``
+- Assembly (jar) with ``sbt assembly``
 
 ### CI Notes
 
