@@ -12,6 +12,12 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
 
   log.info("GnuPGService started")
 
+  private def handleWriteException(exception: Throwable): String = {
+    val errorMsg = s"Write exception (${exception.getLocalizedMessage})"
+    log.warn(errorMsg)
+    errorMsg
+  }
+
   private def formOutputToHtml(input: String): String = input.replaceAll("\n", "<br>")
 
   private def shellCmdWrapper(cmd: String): String =
@@ -42,15 +48,20 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       filename = "testFile.txt",
       workDirPrefix = FileHelper.generateNewWorkDirPrefix
     ) match {
-      case Failure(exception) =>
-        val errorMsg = s"Write exception (${exception.getLocalizedMessage})"
-        log.warn(errorMsg)
-        errorMsg
-
-      case Success(content) => s"Write success (filePath=$content)"
+      case Failure(exception) => this.handleWriteException(exception)
+      case Success(content)   => s"Write success (filePath=$content)"
     }
 
-  def encryptMsg(receiverMail: String, plainText: String): String =
-    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "echo tbd"))
+  def encryptMsg(receiverMail: String, plainText: String): String = {
+
+    val workDirPrefix: String = FileHelper.generateNewWorkDirPrefix
+
+    FileHelper.writeToFile(content = plainText, filename = "to-encrypt.txt", workDirPrefix) match {
+      case Failure(exception) => this.handleWriteException(exception)
+      case Success(toEncryptFilePath) =>
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "cat " + toEncryptFilePath))
+    }
+
+  }
 
 }
