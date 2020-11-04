@@ -47,7 +47,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 #### Let's go (no developer)
 
-- See section ``Use release version from CI`` below.
+- Read section ``Use release version from CI`` below.
 
 ### Let's go
 
