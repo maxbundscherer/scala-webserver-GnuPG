@@ -73,7 +73,13 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       metaTitle = "EncryptMsg",
       title = "Encrypt Msg"
     ) +
-    s"<p>tbd</p>" +
+    this.Template.getTemplateForm(
+      form = this.Template.TemplateForm(
+        items = Vector(this.Template.TemplateFormTextBox(hName = "receiver", label = "Receiver")),
+        hMethod = "post",
+        hAction = "encryptMsg2"
+      )
+    ) +
     this.Template.getTemplateFooter
 
   def encryptMsg2: String =
@@ -86,12 +92,24 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
 
   private object Template {
 
+    abstract class TemplateFormItem(hName: String) {
+      def convertToHtml(): String
+    }
+
+    case class TemplateFormTextBox(hName: String, label: String)
+        extends TemplateFormItem(hName = hName) {
+      override def convertToHtml(): String =
+        s"<label>$label</label><br><input type='text' name='$hName'><br>"
+    }
+
+    case class TemplateForm(items: Vector[TemplateFormItem], hMethod: String, hAction: String)
+
     def getTemplateHeader(metaTitle: String, title: String): String =
       "<html>" +
       "<head>" +
       s"<title>$metaTitle - ${Config.Global.productName}</title>" +
       s"<style>" +
-      "p, li, h1, h2, h3 {font-family: \"Verdana\"}" +
+      "p, li, h1, h2, h3, label, input {font-family: \"Verdana\"}" +
       s"</style>" +
       s"" +
       s"" +
@@ -117,6 +135,15 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       "</html>"
 
     def getTemplateLink(label: String, href: String): String = s"<a href='$href'>$label</a>"
+
+    def getTemplateForm(form: TemplateForm): String = {
+      val formData: String = form.items.map(_.convertToHtml() + "<br>").mkString
+      s"<form action='${form.hAction}' method='${form.hMethod}'>" +
+      s"$formData" +
+      "<button type='submit'>Send</button>" +
+      "</form>" +
+      ""
+    }
 
   }
 
