@@ -111,7 +111,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       "<head>" +
       s"<title>$metaTitle - ${Config.Global.productName}</title>" +
       s"<style>" +
-      "p, li, h1, h2, h3, label, input {font-family: \"Verdana\"}" +
+      "p, li, h1, h2, h3, label, input, button {font-family: \"Verdana\"}" +
       s"</style>" +
       s"" +
       s"" +
