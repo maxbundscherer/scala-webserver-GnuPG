@@ -15,8 +15,6 @@ jobs:
         java-version: 11
     - name: Compile
       run: sbt assembly
-    - name: Debug (find target/)
-      run: find target/
     - name: Move package to artifact dir
       run: echo -n "$GITHUB_REF" | tail -c 6 | xargs -I {} cp target/scala-2.13/Scala-GnuPG\ Webserver-assembly-{}.jar artifact.jar
     - name: Upload Artifact
