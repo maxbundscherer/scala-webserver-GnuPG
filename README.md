@@ -45,11 +45,11 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ``java``
 - ``sbt`` (only as developer)
 
-#### Let's go (no developer)
+### Let's go (no developer)
 
 - Read section ``Use release version from CI`` below.
 
-### Let's go
+### Let's go (developer)
 
 - See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
 - Run with ``sbt run``
