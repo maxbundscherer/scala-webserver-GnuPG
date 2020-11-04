@@ -1,5 +1,5 @@
 name := "Scala-GnuPG Webserver"
-version := "v0.0.8"
+version := "v0.1.0"
 scalaVersion := "2.13.3"
 
 val AkkaVersion = "2.6.8"

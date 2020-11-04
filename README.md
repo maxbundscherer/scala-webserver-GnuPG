@@ -19,6 +19,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ✅ Simple html-engine with webServer ``http://localhost:8080/`` included
 - ✅ Simple shell to html-engine included
 - ✅ Continuous Integration (GitHub Actions) included (triggered auto by tag)
+- ✅ Encrypt/Decrypt messages
 - ✅ See your public gpg-keys
 - ✅ See your private gpg-keys
 - ...
@@ -26,13 +27,13 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 ## We still have things to do...
 
 - ➡️ Encrypt/Decrypt files
-- ➡️ Encrypt/Decrypt messages
 - ➡️ Administrate public-keys
 - ➡️ Administrate secret-keys
 - ➡️ Generate keys
 - ➡️ Awesome front-end
 - ➡️ Don't use shell-gpg as dependency
 - ➡️ Server/Client...
+- ➡️ Improve Encrypt/Decrypt message...
 - ...
 
 ## Let's get started
