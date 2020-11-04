@@ -31,6 +31,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<li>${this.Template.getTemplateLink("Get private keys", "getPrivateKeys")}</li>" +
     s"<li>${this.Template.getTemplateLink("Write file to workDir", "writeTestFile")}</li>" +
     s"<li>${this.Template.getTemplateLink("Encrypt msg", "encryptMsg")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Decrypt msg", "decryptMsg")}</li>" +
     s"</ul>" +
     s"" +
     s"</p>" +
@@ -91,6 +92,24 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       title = "Encrypt Msg Finish"
     ) +
     s"<p>${this.gnuPGService.encryptMsg(receiverMail = receiverMail, plainText = plainText)}</p>" +
+    this.Template.getTemplateFooter
+
+  def decryptMsg: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "DecryptMsg",
+      title = "Decrypt Msg"
+    ) +
+    this.Template.getTemplateForm(
+      form = this.Template.TemplateForm(
+        items = Vector(
+          this.Template.TemplateFormTextBox(hName = "authorMail", label = "Author-Mail"),
+          this.Template
+            .TemplateFormTextArea(hName = "encryptedText", label = "Message (Encrypted Text)")
+        ),
+        hMethod = "post",
+        hAction = "decryptMsg2"
+      )
+    ) +
     this.Template.getTemplateFooter
 
   def decryptMsg2(authorMail: String, encryptedText: String): String =
