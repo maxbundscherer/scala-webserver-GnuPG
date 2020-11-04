@@ -76,7 +76,8 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     this.Template.getTemplateForm(
       form = this.Template.TemplateForm(
         items = Vector(
-          this.Template.TemplateFormTextBox(hName = "receiverMail", label = "Receiver-Mail")
+          this.Template.TemplateFormTextBox(hName = "receiverMail", label = "Receiver-Mail"),
+          this.Template.TemplateFormTextArea(hName = "plainText", label = "Message (Plain Text)")
         ),
         hMethod = "post",
         hAction = "encryptMsg2"
@@ -84,12 +85,13 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     this.Template.getTemplateFooter
 
-  def encryptMsg2(receiverMail: String): String =
+  def encryptMsg2(receiverMail: String, plainText: String): String =
     this.Template.getTemplateHeader(
       metaTitle = "EncryptMsg2",
       title = "Encrypt Msg Finish"
     ) +
     s"<p>($receiverMail)</p>" +
+    s"<p>($plainText)</p>" +
     this.Template.getTemplateFooter
 
   private object Template {
@@ -104,6 +106,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
         s"<label>$label</label><br><input type='text' name='$hName'><br>"
     }
 
+    case class TemplateFormTextArea(hName: String, label: String)
+        extends TemplateFormItem(hName = hName, label = label) {
+      override def convertToHtml(): String =
+        s"<label>$label</label><br><textarea name='$hName'></textarea><br>"
+    }
+
     case class TemplateForm(items: Vector[TemplateFormItem], hMethod: String, hAction: String)
 
     def getTemplateHeader(metaTitle: String, title: String): String =
@@ -111,7 +119,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       "<head>" +
       s"<title>$metaTitle - ${Config.Global.productName}</title>" +
       s"<style>" +
-      "p, li, h1, h2, h3, label, input, button {font-family: \"Verdana\"}" +
+      "p, li, h1, h2, h3, label, input, button, textarea {font-family: \"Verdana\"}" +
       s"</style>" +
       s"" +
       s"" +
