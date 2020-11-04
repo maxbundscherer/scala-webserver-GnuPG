@@ -15,10 +15,10 @@ jobs:
         java-version: 11
     - name: Compile
       run: sbt compile
-    - name: Debug
-      run: echo $GITHUB_REF
+    - name: Move package to artifact dir
+      run: echo -n "$GITHUB_REF" | tail -c 6 | xargs -I {} mv scala-2.13/scala-gnupg-webserver_2.13-{}.jar target/artifact.jar
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
         name: artifact-server-$GITHUB_REF.jar
-        path: target/scala-2.13/scala-gnupg-webserver_2.13-$GITHUB_REF.jar
+        path: target/artifact.jar
