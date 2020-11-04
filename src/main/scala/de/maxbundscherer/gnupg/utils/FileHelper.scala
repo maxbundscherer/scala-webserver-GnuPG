@@ -3,18 +3,23 @@ package de.maxbundscherer.gnupg.utils
 trait FileHelper extends Configuration {
 
   import scala.util.Try
-  import java.io._
+  import better.files._
+  import java.io.{ File => JFile }
 
   object FileHelper {
 
     def generateNewWorkDirPrefix: String = System.currentTimeMillis().toString + "-temp/"
 
-    def writeToFile(content: String, filename: String, workDirPrefix: String): Try[Unit] =
+    def writeToFile(content: String, filename: String, workDirPrefix: String): Try[String] =
       Try {
 
-        val pw = new PrintWriter(new File(s"${Config.GnuPGService.workDir}$workDirPrefix$filename"))
-        pw.write(content)
-        pw.close()
+        File(s"${Config.GnuPGService.workDir}$workDirPrefix")
+          .createDirectoryIfNotExists()
+
+        File(s"${Config.GnuPGService.workDir}$workDirPrefix$filename")
+          .createFileIfNotExists()
+          .write(content)
+          .contentAsString
 
       }
 

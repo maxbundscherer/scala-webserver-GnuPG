@@ -16,6 +16,9 @@ libraryDependencies += "com.typesafe" % "config" % "1.4.0"
 //Logger
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
+//Better Files
+libraryDependencies += "com.github.pathikrit" %% "better-files" % "3.9.1"
+
 lazy val root = (project in file(".")).
   enablePlugins(BuildInfoPlugin).
   settings(

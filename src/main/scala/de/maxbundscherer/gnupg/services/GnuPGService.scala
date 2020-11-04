@@ -47,7 +47,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         log.warn(errorMsg)
         errorMsg
 
-      case Success(_) => "Write success"
+      case Success(content) => s"Write success ($content)"
     }
 
 }
