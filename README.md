@@ -63,7 +63,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 - See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
 - Run ``sbt docker:publishLocal``
-- Run ``docker run --name "tmp-scala-gnupg-webserver" --rm -d -p 8080:8080 scala-gnupg-webserver:v0.1.1``
+- Run ``docker run -v <host_filepath>:/opt/docker/workDir --name "tmp-scala-gnupg-webserver" --rm -p 8080:8080 scala-gnupg-webserver:v0.1.1``
 
 ## Continuous Integration
 

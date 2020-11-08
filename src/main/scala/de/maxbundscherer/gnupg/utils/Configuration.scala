@@ -14,6 +14,7 @@ trait Configuration {
     }
 
     //Please check if folder exists
+    //Dont change it - it may be used in docker
     object GnuPGService {
       val workDir: String = "workDir/"
     }
