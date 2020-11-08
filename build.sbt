@@ -28,6 +28,6 @@ lazy val root = (project in file("."))
     buildInfoKeys := Seq[BuildInfoKey](name, version, scalaVersion, sbtVersion),
     buildInfoPackage := "de.maxbundscherer.gnupg.utils",
     //Docker
-    dockerBaseImage := "openjdk:11-jre",
-    dockerExposedVolumes := Seq("/opt/docker/workDir")
+    dockerBaseImage := "openjdk:11-jre"
+    //dockerExposedVolumes := Seq("/opt/docker/workDir") - maybe not needed
   )
