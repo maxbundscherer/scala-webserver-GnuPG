@@ -61,7 +61,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 ### Use release version from CI
 
 - Download jar from [last build](https://github.com/maxbundscherer/scala-webserver-GnuPG/actions?query=workflow%3A%22Release+Workflow%22)
-- Extract jar
+- Extract zip-file
 - Create dir from [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala) (e.g. ``workDir``)
 - Run ``java -jar artifact.jar``
 
