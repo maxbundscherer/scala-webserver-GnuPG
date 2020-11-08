@@ -20,6 +20,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ✅ Simple html-engine with webServer ``http://localhost:8080/`` included
 - ✅ Simple shell to html-engine included
 - ✅ Continuous Integration (GitHub Actions) included (triggered auto by tag)
+- ✅ Docker container (build docker container from src-files)
 - ✅ Encrypt/Decrypt messages
 - ✅ See your public gpg-keys
 - ✅ See your private gpg-keys
