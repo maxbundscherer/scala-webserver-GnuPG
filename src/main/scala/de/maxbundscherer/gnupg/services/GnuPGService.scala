@@ -66,11 +66,15 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
             s"gpg --recipient $receiverMail --encrypt --armor $toEncryptFilePath"
           )
         ) +
-        //Rm plainText
-        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + toEncryptFilePath)) +
         //Show encrypted data
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd = "cat " + toEncryptFilePath + ".asc")
+        ) +
+        //Rm plainText
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + toEncryptFilePath)) +
+        //Rm encryptedData
+        this.formOutputToHtml(input =
+          this.shellCmdWrapper(cmd = "rm " + toEncryptFilePath + ".asc")
         )
     }
 
