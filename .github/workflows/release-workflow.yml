@@ -1,9 +1,13 @@
 name: Release Workflow
 
 on:
-  create:
+  push:
+    branches:
+      # Push events on main branch
+      - main
     tags:
       - v*
+
 jobs:
   build:
     runs-on: ubuntu-latest

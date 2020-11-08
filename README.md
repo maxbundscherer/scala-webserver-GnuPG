@@ -20,6 +20,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ✅ Simple html-engine with webServer ``http://localhost:8080/`` included
 - ✅ Simple shell to html-engine included
 - ✅ Continuous Integration (GitHub Actions) included (triggered auto by tag)
+- ✅ Docker container (build docker container from src-files)
 - ✅ Encrypt/Decrypt messages
 - ✅ See your public gpg-keys
 - ✅ See your private gpg-keys
@@ -27,6 +28,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 ## We still have things to do...
 
+- ➡️ Add Docker container to GitHub-Packages and CI
 - ➡️ Encrypt/Decrypt files
 - ➡️ Administrate public-keys
 - ➡️ Administrate secret-keys
@@ -54,7 +56,14 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
 - Run with ``sbt run``
 - Triggered Restart (recommend) ``sbt ~reStart``
-- Assembly (jar) with ``sbt assembly``
+- Assembly (jar) with ``sbt assembly`` (see ``target/`` folder)
+- Run jar with ``java -jar fileName.jar``
+
+#### Docker way
+
+- See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
+- Run ``sbt docker:publishLocal``
+- Run ``docker run --name "tmp-scala-gnupg-webserver" --rm -d -p 8080:8080 scala-gnupg-webserver:v0.1.1``
 
 ## Continuous Integration
 
