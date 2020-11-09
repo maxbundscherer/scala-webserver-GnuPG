@@ -52,6 +52,20 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       case Success(content)   => s"Write success (filePath=$content)"
     }
 
+  def importPublicKey(key: String): String =
+    FileHelper.writeToFile(
+      content = key,
+      filename = "import-key.asc",
+      FileHelper.generateNewWorkDirPrefix
+    ) match {
+      case Failure(exception)   => this.handleWriteException(exception)
+      case Success(keyFilePath) =>
+        //Import key
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --import  " + keyFilePath)) +
+        //Remove key
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + keyFilePath))
+    }
+
   def encryptMsg(receiverMail: String, plainText: String): String =
     FileHelper.writeToFile(
       content = plainText,
