@@ -21,6 +21,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ✅ Simple shell to html-engine included
 - ✅ Continuous Integration (GitHub Actions) included (triggered auto by tag)
 - ✅ Docker container (build docker container from src-files)
+- ✅ Import public gpg-keys
 - ✅ Encrypt/Decrypt messages
 - ✅ See your public gpg-keys
 - ✅ See your private gpg-keys
