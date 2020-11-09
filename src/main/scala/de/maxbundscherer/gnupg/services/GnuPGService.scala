@@ -20,16 +20,27 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
 
   private def formOutputToHtml(input: String): String = input.replaceAll("\n", "<br>")
 
-  private def shellCmdWrapper(cmd: String): String =
+  private def shellCmdWrapper(cmd: String): String = {
+
+    case class OwnProcessLogger(var loggedData: String = "") extends ProcessLogger {
+      override def out(s: => String): Unit = loggedData = loggedData + "<br> (Out): " + s
+      override def err(s: => String): Unit = loggedData = loggedData + "<br> (Error): " + s
+      override def buffer[T](f: => T): T   = ???
+    }
+
+    val ownLogger = OwnProcessLogger()
+
     Try {
-      cmd !!
+      cmd !! ownLogger
     } match {
       case Failure(exception) =>
-        val errorMsg = s"Cmd failed ($cmd) (${exception.getLocalizedMessage})"
+        val errorMsg =
+          s"Cmd failed ($cmd) (${exception.getLocalizedMessage})" + "<br> " + ownLogger.loggedData
         log.warn(errorMsg)
         errorMsg
-      case Success(response) => response
+      case Success(response) => response + "<br> " + ownLogger.loggedData
     }
+  }
 
   def getWorkDirFiles: String =
     this.formOutputToHtml(
@@ -37,10 +48,10 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
     ) + "\n\n"
 
   def getPublicKeys: String =
-    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-keys"))
+    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --batch --list-keys"))
 
   def getPrivateKeys: String =
-    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-secret-keys"))
+    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --batch --list-secret-keys"))
 
   def writeTestFile: String =
     FileHelper.writeToFile(
@@ -61,7 +72,9 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       case Failure(exception)   => this.handleWriteException(exception)
       case Success(keyFilePath) =>
         //Import key
-        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --import  " + keyFilePath)) +
+        this.formOutputToHtml(input =
+          this.shellCmdWrapper(cmd = "gpg --batch --import  " + keyFilePath)
+        ) +
         //Remove key
         this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + keyFilePath))
     }
@@ -77,7 +90,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         //Encrypt
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd =
-            s"gpg --recipient $receiver --encrypt --armor $toEncryptFilePath"
+            s"gpg --batch --recipient $receiver --encrypt --armor $toEncryptFilePath"
           )
         ) +
         //Show encrypted data
@@ -103,7 +116,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         //Decrypt
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd =
-            s"gpg --recipient $author --decrypt $toDecryptFilePath > $toDecryptFilePath.decrypted"
+            s"gpg --batch --recipient $author --decrypt $toDecryptFilePath > $toDecryptFilePath.decrypted"
           )
         ) +
         //Show encrypted data
