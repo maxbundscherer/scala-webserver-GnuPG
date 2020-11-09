@@ -30,6 +30,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<li>${this.Template.getTemplateLink("Get public keys", "getPublicKeys")}</li>" +
     s"<li>${this.Template.getTemplateLink("Get private keys", "getPrivateKeys")}</li>" +
     s"<li>${this.Template.getTemplateLink("Write file to workDir", "writeTestFile")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Import public key", "importPublicKey")}</li>" +
     s"<li>${this.Template.getTemplateLink("Encrypt msg", "encryptMsg")}</li>" +
     s"<li>${this.Template.getTemplateLink("Decrypt msg", "decryptMsg")}</li>" +
     s"</ul>" +
@@ -67,6 +68,30 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       title = "Write Test File"
     ) +
     s"<p>${this.gnuPGService.writeTestFile}</p>" +
+    this.Template.getTemplateFooter
+
+  def importPublicKey: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "ImportPublicKey",
+      title = "Import public key"
+    ) +
+    this.Template.getTemplateForm(
+      form = this.Template.TemplateForm(
+        items = Vector(
+          this.Template.TemplateFormTextArea(hName = "key", label = "Public gpg key")
+        ),
+        hMethod = "post",
+        hAction = "importPublicKey2"
+      )
+    ) +
+    this.Template.getTemplateFooter
+
+  def importPublicKey2(key: String): String =
+    this.Template.getTemplateHeader(
+      metaTitle = "ImportPublicKey2",
+      title = "Import public key finish"
+    ) +
+    s"<p>${this.gnuPGService.importPublicKey(key)}</p>" +
     this.Template.getTemplateFooter
 
   def encryptMsg: String =

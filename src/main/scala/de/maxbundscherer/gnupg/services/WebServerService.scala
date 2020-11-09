@@ -68,6 +68,25 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
             )
           )
         }
+      } ~
+      pathPrefix("importPublicKey") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.importPublicKey
+            )
+          )
+        }
+      } ~ pathPrefix("importPublicKey2") {
+        formFields("key") { key =>
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.importPublicKey2(key)
+            )
+          )
+        }
       } ~ pathPrefix("encryptMsg") {
         get {
           complete(
