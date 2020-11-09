@@ -115,12 +115,12 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           )
         }
       } ~ pathPrefix("decryptMsg2") {
-        formFields("authorMail", "encryptedText") { (authorMail, encryptedText) =>
+        formFields("author", "encryptedText") { (author, encryptedText) =>
           complete(
             HttpEntity(
               ContentTypes.`text/html(UTF-8)`,
               this.webServerHandler
-                .decryptMsg2(authorMail = authorMail, encryptedText = encryptedText)
+                .decryptMsg2(author = author, encryptedText = encryptedText)
             )
           )
         }

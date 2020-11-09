@@ -92,7 +92,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         )
     }
 
-  def decryptMsg(authorMail: String, encryptedText: String): String =
+  def decryptMsg(author: String, encryptedText: String): String =
     FileHelper.writeToFile(
       content = encryptedText,
       filename = "to-decrypt.txt.asc",
@@ -103,7 +103,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         //Decrypt
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd =
-            s"gpg --recipient $authorMail --decrypt $toDecryptFilePath > $toDecryptFilePath.decrypted"
+            s"gpg --recipient $author --decrypt $toDecryptFilePath > $toDecryptFilePath.decrypted"
           )
         ) +
         //Show encrypted data

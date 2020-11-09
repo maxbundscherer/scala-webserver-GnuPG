@@ -127,7 +127,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     this.Template.getTemplateForm(
       form = this.Template.TemplateForm(
         items = Vector(
-          this.Template.TemplateFormTextBox(hName = "authorMail", label = "Author-Mail"),
+          this.Template.TemplateFormTextBox(hName = "author", label = "Author"),
           this.Template
             .TemplateFormTextArea(hName = "encryptedText", label = "Message (Encrypted Text)")
         ),
@@ -137,12 +137,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     this.Template.getTemplateFooter
 
-  def decryptMsg2(authorMail: String, encryptedText: String): String =
+  def decryptMsg2(author: String, encryptedText: String): String =
     this.Template.getTemplateHeader(
       metaTitle = "DecryptMsg2",
       title = "Decrypt Msg Finish"
     ) +
-    s"<p>${this.gnuPGService.decryptMsg(authorMail = authorMail, encryptedText = encryptedText)}</p>" +
+    s"<p>${this.gnuPGService.decryptMsg(author = author, encryptedText = encryptedText)}</p>" +
     this.Template.getTemplateFooter
 
   private object Template {
