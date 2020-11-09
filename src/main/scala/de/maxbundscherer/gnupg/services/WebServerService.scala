@@ -59,7 +59,25 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           )
         }
       } ~
-      pathPrefix("writeTestFile") {
+      pathPrefix("sendCmd") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.sendCmd
+            )
+          )
+        }
+      } ~ pathPrefix("sendCmd2") {
+        formFields("cmd") { cmd =>
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.sendCmd2(cmd)
+            )
+          )
+        }
+      } ~ pathPrefix("writeTestFile") {
         get {
           complete(
             HttpEntity(

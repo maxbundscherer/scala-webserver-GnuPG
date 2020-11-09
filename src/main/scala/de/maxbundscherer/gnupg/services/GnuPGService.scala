@@ -53,6 +53,9 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
   def getPrivateKeys: String =
     this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --batch --list-secret-keys"))
 
+  def sendCmd(cmd: String): String =
+    this.formOutputToHtml(input = this.shellCmdWrapper(cmd = cmd))
+
   def writeTestFile: String =
     FileHelper.writeToFile(
       content = "Test-Content",

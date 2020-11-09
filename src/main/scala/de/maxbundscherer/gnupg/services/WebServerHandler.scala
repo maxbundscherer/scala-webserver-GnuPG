@@ -29,6 +29,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<li>${this.Template.getTemplateLink("Get work dir files", "getWorkDirFiles")}</li>" +
     s"<li>${this.Template.getTemplateLink("Get public keys", "getPublicKeys")}</li>" +
     s"<li>${this.Template.getTemplateLink("Get private keys", "getPrivateKeys")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Send bash cmd", "sendCmd")}</li>" +
     s"<li>${this.Template.getTemplateLink("Write file to workDir", "writeTestFile")}</li>" +
     s"<li>${this.Template.getTemplateLink("Import public key", "importPublicKey")}</li>" +
     s"<li>${this.Template.getTemplateLink("Encrypt msg", "encryptMsg")}</li>" +
@@ -60,6 +61,30 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
       title = "Private keys"
     ) +
     s"<p>${this.gnuPGService.getPrivateKeys}</p>" +
+    this.Template.getTemplateFooter
+
+  def sendCmd: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "SendCmd",
+      title = "Send cmd"
+    ) +
+    this.Template.getTemplateForm(
+      form = this.Template.TemplateForm(
+        items = Vector(
+          this.Template.TemplateFormTextArea(hName = "cmd", label = "Bash cmd")
+        ),
+        hMethod = "post",
+        hAction = "sendCmd2"
+      )
+    ) +
+    this.Template.getTemplateFooter
+
+  def sendCmd2(cmd: String): String =
+    this.Template.getTemplateHeader(
+      metaTitle = "SendCmd",
+      title = "Send cmd finish"
+    ) +
+    s"<p>${this.gnuPGService.sendCmd(cmd)}</p>" +
     this.Template.getTemplateFooter
 
   def writeTestFile: String =

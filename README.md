@@ -25,6 +25,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ✅ Encrypt/Decrypt messages
 - ✅ See your public gpg-keys
 - ✅ See your private gpg-keys
+- ✅ Debug tools included
 - ...
 
 ## We still have things to do...
