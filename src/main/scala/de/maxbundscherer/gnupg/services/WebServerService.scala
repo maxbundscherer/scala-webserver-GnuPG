@@ -68,6 +68,25 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
             )
           )
         }
+      } ~
+      pathPrefix("importPublicKey") {
+        get {
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.importPublicKey
+            )
+          )
+        }
+      } ~ pathPrefix("importPublicKey2") {
+        formFields("key") { key =>
+          complete(
+            HttpEntity(
+              ContentTypes.`text/html(UTF-8)`,
+              this.webServerHandler.importPublicKey2(key)
+            )
+          )
+        }
       } ~ pathPrefix("encryptMsg") {
         get {
           complete(
@@ -78,11 +97,11 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           )
         }
       } ~ pathPrefix("encryptMsg2") {
-        formFields("receiverMail", "plainText") { (receiverMail, plainText) =>
+        formFields("receiver", "plainText") { (receiver, plainText) =>
           complete(
             HttpEntity(
               ContentTypes.`text/html(UTF-8)`,
-              this.webServerHandler.encryptMsg2(receiverMail = receiverMail, plainText = plainText)
+              this.webServerHandler.encryptMsg2(receiver = receiver, plainText = plainText)
             )
           )
         }
@@ -96,12 +115,12 @@ class WebServerService(gnuPGService: GnuPGService)(implicit
           )
         }
       } ~ pathPrefix("decryptMsg2") {
-        formFields("authorMail", "encryptedText") { (authorMail, encryptedText) =>
+        formFields("author", "encryptedText") { (author, encryptedText) =>
           complete(
             HttpEntity(
               ContentTypes.`text/html(UTF-8)`,
               this.webServerHandler
-                .decryptMsg2(authorMail = authorMail, encryptedText = encryptedText)
+                .decryptMsg2(author = author, encryptedText = encryptedText)
             )
           )
         }

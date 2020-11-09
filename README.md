@@ -21,6 +21,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 - ✅ Simple shell to html-engine included
 - ✅ Continuous Integration (GitHub Actions) included (triggered auto by tag)
 - ✅ Docker container (build docker container from src-files)
+- ✅ Import public gpg-keys
 - ✅ Encrypt/Decrypt messages
 - ✅ See your public gpg-keys
 - ✅ See your private gpg-keys
@@ -63,7 +64,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 - See [config](./src/main/scala/de/maxbundscherer/gnupg/utils/Configuration.scala)
 - Run ``sbt docker:publishLocal``
-- Run ``docker run -v <LOCAL-PATH-GPG-FOLDER>:/home/demiourgos728/.gnupg -v <LOCAL-PATH-WORKDIR-FOLDER>:/opt/docker/workDir --name "tmp-scala-gnupg-webserver" --rm -p 8080:8080 scala-gnupg-webserver:v0.1.2``
+- Run ``docker run -v <LOCAL-PATH-GPG-FOLDER>:/home/demiourgos728/.gnupg -v <LOCAL-PATH-WORKDIR-FOLDER>:/opt/docker/workDir --name "tmp-scala-gnupg-webserver" --rm -p 8080:8080 scala-gnupg-webserver:v0.1.3``
 
 ## Continuous Integration
 

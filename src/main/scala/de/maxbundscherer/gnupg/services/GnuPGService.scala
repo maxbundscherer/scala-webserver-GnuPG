@@ -52,7 +52,21 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       case Success(content)   => s"Write success (filePath=$content)"
     }
 
-  def encryptMsg(receiverMail: String, plainText: String): String =
+  def importPublicKey(key: String): String =
+    FileHelper.writeToFile(
+      content = key,
+      filename = "import-key.asc",
+      FileHelper.generateNewWorkDirPrefix
+    ) match {
+      case Failure(exception)   => this.handleWriteException(exception)
+      case Success(keyFilePath) =>
+        //Import key
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --import  " + keyFilePath)) +
+        //Remove key
+        this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + keyFilePath))
+    }
+
+  def encryptMsg(receiver: String, plainText: String): String =
     FileHelper.writeToFile(
       content = plainText,
       filename = "to-encrypt.txt",
@@ -63,7 +77,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         //Encrypt
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd =
-            s"gpg --recipient $receiverMail --encrypt --armor $toEncryptFilePath"
+            s"gpg --recipient $receiver --encrypt --armor $toEncryptFilePath"
           )
         ) +
         //Show encrypted data
@@ -78,7 +92,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         )
     }
 
-  def decryptMsg(authorMail: String, encryptedText: String): String =
+  def decryptMsg(author: String, encryptedText: String): String =
     FileHelper.writeToFile(
       content = encryptedText,
       filename = "to-decrypt.txt.asc",
@@ -89,7 +103,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         //Decrypt
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd =
-            s"gpg --recipient $authorMail --decrypt $toDecryptFilePath > $toDecryptFilePath.decrypted"
+            s"gpg --recipient $author --decrypt $toDecryptFilePath > $toDecryptFilePath.decrypted"
           )
         ) +
         //Show encrypted data

@@ -30,6 +30,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<li>${this.Template.getTemplateLink("Get public keys", "getPublicKeys")}</li>" +
     s"<li>${this.Template.getTemplateLink("Get private keys", "getPrivateKeys")}</li>" +
     s"<li>${this.Template.getTemplateLink("Write file to workDir", "writeTestFile")}</li>" +
+    s"<li>${this.Template.getTemplateLink("Import public key", "importPublicKey")}</li>" +
     s"<li>${this.Template.getTemplateLink("Encrypt msg", "encryptMsg")}</li>" +
     s"<li>${this.Template.getTemplateLink("Decrypt msg", "decryptMsg")}</li>" +
     s"</ul>" +
@@ -69,6 +70,30 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     s"<p>${this.gnuPGService.writeTestFile}</p>" +
     this.Template.getTemplateFooter
 
+  def importPublicKey: String =
+    this.Template.getTemplateHeader(
+      metaTitle = "ImportPublicKey",
+      title = "Import public key"
+    ) +
+    this.Template.getTemplateForm(
+      form = this.Template.TemplateForm(
+        items = Vector(
+          this.Template.TemplateFormTextArea(hName = "key", label = "Public gpg key")
+        ),
+        hMethod = "post",
+        hAction = "importPublicKey2"
+      )
+    ) +
+    this.Template.getTemplateFooter
+
+  def importPublicKey2(key: String): String =
+    this.Template.getTemplateHeader(
+      metaTitle = "ImportPublicKey2",
+      title = "Import public key finish"
+    ) +
+    s"<p>${this.gnuPGService.importPublicKey(key)}</p>" +
+    this.Template.getTemplateFooter
+
   def encryptMsg: String =
     this.Template.getTemplateHeader(
       metaTitle = "EncryptMsg",
@@ -77,7 +102,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     this.Template.getTemplateForm(
       form = this.Template.TemplateForm(
         items = Vector(
-          this.Template.TemplateFormTextBox(hName = "receiverMail", label = "Receiver-Mail"),
+          this.Template.TemplateFormTextBox(hName = "receiver", label = "Receiver"),
           this.Template.TemplateFormTextArea(hName = "plainText", label = "Message (Plain Text)")
         ),
         hMethod = "post",
@@ -86,12 +111,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     this.Template.getTemplateFooter
 
-  def encryptMsg2(receiverMail: String, plainText: String): String =
+  def encryptMsg2(receiver: String, plainText: String): String =
     this.Template.getTemplateHeader(
       metaTitle = "EncryptMsg2",
       title = "Encrypt Msg Finish"
     ) +
-    s"<p>${this.gnuPGService.encryptMsg(receiverMail = receiverMail, plainText = plainText)}</p>" +
+    s"<p>${this.gnuPGService.encryptMsg(receiver = receiver, plainText = plainText)}</p>" +
     this.Template.getTemplateFooter
 
   def decryptMsg: String =
@@ -102,7 +127,7 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     this.Template.getTemplateForm(
       form = this.Template.TemplateForm(
         items = Vector(
-          this.Template.TemplateFormTextBox(hName = "authorMail", label = "Author-Mail"),
+          this.Template.TemplateFormTextBox(hName = "author", label = "Author"),
           this.Template
             .TemplateFormTextArea(hName = "encryptedText", label = "Message (Encrypted Text)")
         ),
@@ -112,12 +137,12 @@ private class WebServerHandler(gnuPGService: GnuPGService)(implicit log: Logger)
     ) +
     this.Template.getTemplateFooter
 
-  def decryptMsg2(authorMail: String, encryptedText: String): String =
+  def decryptMsg2(author: String, encryptedText: String): String =
     this.Template.getTemplateHeader(
       metaTitle = "DecryptMsg2",
       title = "Decrypt Msg Finish"
     ) +
-    s"<p>${this.gnuPGService.decryptMsg(authorMail = authorMail, encryptedText = encryptedText)}</p>" +
+    s"<p>${this.gnuPGService.decryptMsg(author = author, encryptedText = encryptedText)}</p>" +
     this.Template.getTemplateFooter
 
   private object Template {
