@@ -31,10 +31,10 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
       case Success(response) => response
     }
 
-  private val workDir = Config.GnuPGService.workDir
-
   def getWorkDirFiles: String =
-    this.formOutputToHtml(this.shellCmdWrapper(cmd = "find /opt/docker/" + workDir)) + "\n\n"
+    this.formOutputToHtml(
+      this.shellCmdWrapper(cmd = "find " + Config.GnuPGService.workDir)
+    ) + "\n\n"
 
   def getPublicKeys: String =
     this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "gpg --list-keys"))
