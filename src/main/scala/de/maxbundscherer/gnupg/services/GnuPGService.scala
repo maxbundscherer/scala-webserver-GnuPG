@@ -24,7 +24,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
 
     case class OwnProcessLogger(var loggedData: String = "") extends ProcessLogger {
       override def out(s: => String): Unit = loggedData = loggedData + "<br> (Out): " + s
-      override def err(s: => String): Unit = loggedData = loggedData + "<br> (Error): " + s
+      override def err(s: => String): Unit = loggedData = loggedData + "<br> (Error/Warn): " + s
       override def buffer[T](f: => T): T   = ???
     }
 
@@ -35,10 +35,10 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
     } match {
       case Failure(exception) =>
         val errorMsg =
-          s"Cmd failed ($cmd) (${exception.getLocalizedMessage})" + "<br> " + ownLogger.loggedData
+          s"Cmd failed ($cmd) (${exception.getLocalizedMessage})" + "<hr> " + ownLogger.loggedData
         log.warn(errorMsg)
         errorMsg
-      case Success(response) => response + "<br> " + ownLogger.loggedData
+      case Success(response) => response + "<hr> " + ownLogger.loggedData
     }
   }
 
