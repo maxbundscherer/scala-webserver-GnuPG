@@ -66,7 +66,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         this.formOutputToHtml(input = this.shellCmdWrapper(cmd = "rm " + keyFilePath))
     }
 
-  def encryptMsg(receiverMail: String, plainText: String): String =
+  def encryptMsg(receiver: String, plainText: String): String =
     FileHelper.writeToFile(
       content = plainText,
       filename = "to-encrypt.txt",
@@ -77,7 +77,7 @@ class GnuPGService()(implicit log: Logger) extends Configuration with FileHelper
         //Encrypt
         this.formOutputToHtml(input =
           this.shellCmdWrapper(cmd =
-            s"gpg --recipient $receiverMail --encrypt --armor $toEncryptFilePath"
+            s"gpg --recipient $receiver --encrypt --armor $toEncryptFilePath"
           )
         ) +
         //Show encrypted data
